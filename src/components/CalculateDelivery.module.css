@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.calcShipDiv{
+    @apply p-10 bg-white text-black  max-w-sm rounded-xl flex-col flex justify-center m-10;
+}
+.calcShipDiv>h2{
+    @apply text-lg font-bold pb-5;
+}
+.btnAccurasySelected{
+    @apply text-violet-900 py-2 px-3 m-2 bg-white rounded-2xl;
+}
+.btnAccurasyUnselected{
+    @apply text-stone-500 py-2 px-3 m-2 rounded-2xl;
+}
+.button{
+    @apply bg-violet-900 text-white py-3 px-5 m-2  rounded-3xl
+    hover:bg-violet-500 text-white py-3 px-5 m-2  rounded-3xl
+}
+.calcShipSelect{
+    @apply p-2
+}
+.approximatelySizes{
+    @apply
+    flex flex-col justify-center my-3
+}
+.approximatelySizes>input{
+    @apply p-2
+}

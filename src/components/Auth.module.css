@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.auth{
+    @apply p-10 bg-white text-black  max-w-sm rounded-xl flex-col flex justify-center text-center m-10;
+}
+h2{
+    @apply text-lg font-bold pb-5;
+}
+.button{
+    @apply bg-violet-900 text-white py-3 px-5 m-2  rounded-3xl
+    hover:bg-violet-500 text-white py-3 px-5 m-2  rounded-3xl
+}
+.authForm{
+    @apply
+    flex-col flex justify-center
+}
+.authForm>input{
+    @apply p-2 my-2
+}
+

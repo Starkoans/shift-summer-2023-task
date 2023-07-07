@@ -1,0 +1,18 @@
+.account{
+    @apply
+    bg-white
+    text-black
+}
+.account>header{
+    @apply
+    w-screen
+    flex
+    justify-end
+}
+
+.account>header>div{
+    @apply
+    flex
+    justify-end
+    px-4
+}
