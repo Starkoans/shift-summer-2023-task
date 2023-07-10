@@ -9,8 +9,8 @@ h2{
     @apply text-lg font-bold pb-5;
 }
 .button{
-    @apply bg-violet-900 text-white py-3 px-5 m-2  rounded-3xl
-    hover:bg-violet-500 text-white py-3 px-5 m-2  rounded-3xl
+    @apply
+    hover:bg-violet-500
 }
 .authForm{
     @apply

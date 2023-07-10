@@ -1,15 +1,15 @@
-import {combineReducers, configureStore} from "@reduxjs/toolkit";
-import userReducer from "./user.slice.js";
-import newDeliveryReducer from './newDelivery.slice.js'
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-//соединение редьюсеров
+import newDeliveryReducer from './newDelivery.slice.js';
+import otpReducer from './otp.slice.js';
+import userReducer from './user.slice.js';
+
 const rootReducer = combineReducers({
-    user: userReducer,
-    newDeliver:newDeliveryReducer
-
-})
+  user: userReducer,
+  newDeliver: newDeliveryReducer,
+  otp: otpReducer,
+});
 
 export const store = configureStore({
-    reducer: rootReducer,
-
-})
+  reducer: rootReducer,
+});

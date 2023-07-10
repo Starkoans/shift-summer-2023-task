@@ -1,0 +1,14 @@
+## Ignore artifacts:
+#coverage
+
+# Ignore all HTML files:
+**/*.html
+
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+
+.eslintrc.cjs
+.prettierignore.json
+*.json
