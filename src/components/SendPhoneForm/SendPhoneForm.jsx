@@ -1,14 +1,13 @@
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import useAuth from '../../hooks/useAuth.js';
-import { removeCode } from '../../store/otp.slice.js';
+import { removeCode } from '../../store/user.slice.js';
 import { sendPhone, setUserPhone } from '../../store/user.slice.js';
 import styles from '../Auth.module.css';
 
 export default function SendPhoneForm() {
-  const user = useAuth();
+  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -32,7 +31,7 @@ export default function SendPhoneForm() {
       <input
         placeholder="Номер телефона"
         type={'tel'}
-        defaultValue={user.phone}
+        defaultValue={user.phone.phoneNum}
         {...register('phone', {
           required: 'Поле обязательно к заполнению.',
           minLength: {

@@ -15,11 +15,10 @@ export const sendPhone = createAsyncThunk(
           },
         })
       ).json();
-      console.log(response);
+
       if (!response.ok) {
         throw new Error(response.error);
       }
-
       return response;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -27,13 +26,52 @@ export const sendPhone = createAsyncThunk(
   }
 );
 
+export const signIn = createAsyncThunk(
+  'user/signIn',
+  async function (data, { rejectWithValue }) {
+    try {
+      const response = await fetch(
+        'https://shift-backend.onrender.com/users/signin',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            phone: data.phone,
+            code: data.code,
+          }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+        }
+      );
+
+      if (response.status == 400) {
+        throw new Error('Неверный пароль.');
+      }
+      if (!response.ok) {
+        throw new Error('Что-то пошло не так...');
+      }
+      return response.json();
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const initialState = {
-  phone: null,
+  id: null,
   token: null,
   username: null,
   email: null,
-  error: null,
-  status: null,
+  otp: {
+    code: null,
+    error: null,
+    status: null,
+  },
+  phone: {
+    status: null,
+    error: null,
+    phoneNum: null,
+  },
 };
 
 const userSlice = createSlice({
@@ -41,7 +79,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUserPhone: (state, action) => {
-      state.phone = action.payload;
+      state.phone.phoneNum = action.payload;
     },
     setUserToken: (state, action) => {
       state.token = action.payload;
@@ -52,7 +90,14 @@ const userSlice = createSlice({
     setUserEmail: (state, action) => {
       state.email = action.payload;
     },
-
+    setCode: (state, action) => {
+      state.otp.code = action.payload;
+    },
+    removeCode: state => {
+      state.otp.code = null;
+      state.otp.status = null;
+      state.otp.error = null;
+    },
     removeUser: state => {
       state.username = null;
       state.phone = null;
@@ -64,16 +109,32 @@ const userSlice = createSlice({
   },
   extraReducers: {
     [sendPhone.pending]: state => {
-      state.status = 'loading';
-      state.error = null;
+      state.phone.status = 'loading';
+      state.phone.error = null;
     },
     [sendPhone.fulfilled]: (state, action) => {
-      state.status = 'resolved';
-      state.code = action.payload;
+      state.phone.status = 'resolved';
+
+      state.phone.code = action.payload;
     },
     [sendPhone.rejected]: (state, action) => {
-      state.status = 'error';
-      state.error = action.payload;
+      state.phone.status = 'error';
+      state.phone.error = action.payload;
+    },
+
+    [signIn.pending]: state => {
+      state.otp.status = 'loading';
+      state.otp.error = null;
+    },
+    [signIn.fulfilled]: (state, action) => {
+      state.otp.status = 'resolved';
+      console.log(action.payload);
+      state.id = action.payload.user._id;
+      state.token = action.payload.token;
+    },
+    [signIn.rejected]: (state, action) => {
+      state.otp.status = 'error';
+      state.otp.error = action.payload;
     },
   },
 });
@@ -84,5 +145,7 @@ export const {
   setUserPhone,
   setUserToken,
   removeUser,
+  setCode,
+  removeCode,
 } = userSlice.actions;
 export default userSlice.reducer;

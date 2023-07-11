@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import Account from './components/Account.jsx';
+import Profile from './components/Account/AccountProfile/Profile.jsx';
+import DeliveryHistory from './components/Account/DeliveryHistory.jsx';
 import AuthForm from './components/AuthForm/AuthForm.jsx';
-import DeliveryHistory from './components/DeliveryHistory.jsx';
 import Layout from './components/Header/Layout.jsx';
-import Profile from './components/Profile/Profile.jsx';
 import SendPhoneForm from './components/SendPhoneForm/SendPhoneForm.jsx';
 import './index.css';
+import AccountPage from './pages/AccountPage.jsx';
 import AuthPage from './pages/AuthPage.jsx';
 import MainPage from './pages/MainPage.jsx';
 import { store } from './store/store.js';
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    element: <Account />,
+    element: <AccountPage />,
     path: '/account',
     children: [
       {

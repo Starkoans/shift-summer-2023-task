@@ -1,18 +1,15 @@
+import { useSelector } from 'react-redux';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 
-import useAuth from '../../hooks/useAuth.js';
 import styles from './Layout.module.css';
 
 function Layout() {
-  const user = useAuth();
-  // const [user, setUser] = useState('+79137200000');
-
-  // setUser()
+  const user = useSelector(state => state.user);
 
   return (
     <>
       <nav className={styles.header}>
-        {!user.isAuth ? (
+        {!user.token ? (
           <>
             <button>
               <NavLink to={'/auth/phone'}>Войти в личный кабинет</NavLink>
@@ -20,7 +17,7 @@ function Layout() {
           </>
         ) : (
           <>
-            <Link to={'/account'}>{user.phone}</Link>
+            <Link to={'/account'}>{user.phone.phoneNum}</Link>
           </>
         )}
       </nav>

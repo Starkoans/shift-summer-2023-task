@@ -1,8 +1,8 @@
 import { Link, Outlet } from 'react-router-dom';
 
-import styles from './Account.module.css';
+import styles from './AccountHeader.module.css';
 
-function Account() {
+function AccountHeader() {
   return (
     <div className={styles.account}>
       <header>
@@ -24,4 +24,4 @@ function Account() {
     </div>
   );
 }
-export default Account;
+export default AccountHeader;
