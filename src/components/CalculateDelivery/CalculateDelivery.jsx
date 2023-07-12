@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import {
+  calcNewDelivery,
   setPackage,
   setReceiverPoint,
   setSenderPoint,
@@ -21,20 +23,23 @@ export default function CalculateDelivery() {
   const [points, setPoints] = useState([]);
 
   const dispatch = useDispatch();
+  const newDelivery = useSelector(state => state.newDelivery);
+  const navigate = useNavigate();
   const onSubmit = data => {
     const receiverPoint = points.find(p => p.name === watch('receiverPoint'));
     dispatch(setReceiverPoint(receiverPoint));
-
     const senderPoint = points.find(p => p.name === watch('senderPoint'));
     dispatch(setSenderPoint(senderPoint));
+    const pack = packageTypes.find(p => p.name === watch('package'));
 
     console.log(JSON.stringify(data));
     if (data.accurasy === 'accurately') {
       dispatch(setPackage(data));
     } else if (data.accurasy === 'approximately') {
-      console.log(packageTypes.find(p => p.name === watch('package')));
-      dispatch(setPackage(packageTypes.find(p => p.name === watch('package'))));
+      dispatch(setPackage(pack));
     }
+    dispatch(calcNewDelivery({ pack, receiverPoint, senderPoint }));
+    navigate('/order');
   };
 
   const [accurasy, setAccurasy] = useState(watch('select-accurasy'));

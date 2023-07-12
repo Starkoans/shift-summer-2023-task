@@ -9,7 +9,26 @@ function Layout() {
   return (
     <>
       <nav className={styles.header}>
-        {!user.token ? (
+        <div className="flex flex-row pr-10  basis-2/3 justify-self-start">
+          <NavLink to={'/'} className={'flex flex-row'}>
+            <img
+              width={'40px'}
+              height={'40px'}
+              src="../../../ShiftDeliveryIcon.svg"
+              alt="icon"
+            />
+            <div
+              className={
+                'pl-2 text-2xl font-bold hover:decoration-0 text-black '
+              }
+            >
+              {' '}
+              SHIFT DELIVERY
+            </div>
+          </NavLink>
+        </div>
+
+        {!user.id ? (
           <>
             <button>
               <NavLink to={'/auth/phone'}>Войти в личный кабинет</NavLink>

@@ -12,6 +12,7 @@ import './index.css';
 import AccountPage from './pages/AccountPage.jsx';
 import AuthPage from './pages/AuthPage.jsx';
 import MainPage from './pages/MainPage.jsx';
+import OrderOptionsPage from './pages/OrderOptionsPage.jsx';
 import { store } from './store/store.js';
 
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         element: <MainPage />,
         path: '/',
+      },
+      {
+        element: <OrderOptionsPage />,
+        path: '/order',
       },
       {
         element: <AuthPage />,
@@ -37,19 +42,20 @@ const router = createBrowserRouter([
           },
         ],
       },
-    ],
-  },
-  {
-    element: <AccountPage />,
-    path: '/account',
-    children: [
+
       {
-        element: <Profile />,
-        path: 'profile',
-      },
-      {
-        element: <DeliveryHistory />,
-        path: 'history',
+        element: <AccountPage />,
+        path: '/account',
+        children: [
+          {
+            element: <Profile />,
+            path: 'profile',
+          },
+          {
+            element: <DeliveryHistory />,
+            path: 'history',
+          },
+        ],
       },
     ],
   },
