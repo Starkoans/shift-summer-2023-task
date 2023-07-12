@@ -5,7 +5,7 @@ import userReducer from './user.slice.js';
 
 const rootReducer = combineReducers({
   user: userReducer,
-  newDeliver: newDeliveryReducer,
+  newDelivery: newDeliveryReducer,
 });
 
 export const store = configureStore({
