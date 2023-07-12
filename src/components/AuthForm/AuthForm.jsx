@@ -1,9 +1,8 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { setCode, signIn } from '../../store/user.slice.js';
+import { getSession, setCode, signIn } from '../../store/user.slice.js';
 import styles from '../Auth.module.css';
 
 export default function AuthForm() {
@@ -17,6 +16,7 @@ export default function AuthForm() {
   } = useForm();
   const onSubmit = data => {
     dispatch(signIn({ phone: user.phone.phoneNum, code: data.code }));
+    dispatch(getSession(user.token));
     console.log(JSON.stringify(data));
     dispatch(setCode(data.code));
   };

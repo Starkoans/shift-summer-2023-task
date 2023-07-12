@@ -57,11 +57,43 @@ export const signIn = createAsyncThunk(
   }
 );
 
+export const getSession = createAsyncThunk(
+  'user/getSession',
+  async function (data, { rejectWithValue }) {
+    try {
+      const response = await fetch(
+        'https://shift-backend.onrender.com/users/session',
+        {
+          method: 'GET',
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+            Authorization: 'Bearer ' + data,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(response.error);
+      }
+      return response.json();
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const initialState = {
-  id: null,
+  userInfo: {
+    id: null,
+    firstname: null,
+    middlename: null,
+    lastname: null,
+    email: null,
+    city: null,
+    status: null,
+    error: null,
+  },
   token: null,
-  username: null,
-  email: null,
   otp: {
     code: null,
     error: null,
@@ -114,7 +146,6 @@ const userSlice = createSlice({
     },
     [sendPhone.fulfilled]: (state, action) => {
       state.phone.status = 'resolved';
-
       state.phone.code = action.payload;
     },
     [sendPhone.rejected]: (state, action) => {
@@ -128,11 +159,24 @@ const userSlice = createSlice({
     },
     [signIn.fulfilled]: (state, action) => {
       state.otp.status = 'resolved';
-      console.log(action.payload);
-      state.id = action.payload.user._id;
+      // state.id = action.payload.user._id;
       state.token = action.payload.token;
     },
     [signIn.rejected]: (state, action) => {
+      state.otp.status = 'error';
+      state.otp.error = action.payload;
+    },
+
+    [getSession.pending]: state => {
+      state.userInfo.status = 'loading';
+      state.userInfo.error = null;
+    },
+    [getSession.fulfilled]: (state, action) => {
+      state.userInfo.status = 'resolved';
+      state.userInfo = action.payload.user;
+      console.log(action.payload);
+    },
+    [getSession.rejected]: (state, action) => {
       state.otp.status = 'error';
       state.otp.error = action.payload;
     },
