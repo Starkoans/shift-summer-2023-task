@@ -1,4 +1,44 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
+export const calcNewDelivery = createAsyncThunk(
+  'newDelivery/calc',
+  async function (data, { rejectWithValue }) {
+    try {
+      const response = await fetch(
+        'https://shift-backend.onrender.com/delivery/calc',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            package: {
+              length: data.pack.length,
+              width: data.pack.width,
+              weight: data.pack.weight,
+              height: data.pack.height,
+            },
+            senderPoint: {
+              latitude: data.senderPoint.latitude,
+              longitude: data.senderPoint.longitude,
+            },
+            receiverPoint: {
+              latitude: data.receiverPoint.latitude,
+              longitude: data.receiverPoint.longitude,
+            },
+          }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Что-то пошло не так...');
+      }
+      return response.json();
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const initialState = {
   package: {
@@ -38,12 +78,23 @@ const initialState = {
 
   payer: 'RECEIVER',
 
-  option: {
-    id: null,
-    price: null,
-    days: null,
-    name: null,
-    type: null,
+  calc: {
+    options: [],
+    error: null,
+    status: null,
+  },
+
+  senderAddress: {
+    street: null,
+    house: null,
+    appartament: null,
+    comment: null,
+  },
+  receiverAddress: {
+    street: null,
+    house: null,
+    appartament: null,
+    comment: null,
   },
 };
 
@@ -85,6 +136,21 @@ const newDeliverySlice = createSlice({
       state.option.days = action.payload.days;
       state.option.name = action.payload.name;
       state.option.type = action.payload.type;
+    },
+  },
+  extraReducers: {
+    [calcNewDelivery.pending]: state => {
+      state.calc.status = 'loading';
+      state.calc.error = null;
+    },
+    [calcNewDelivery.fulfilled]: (state, action) => {
+      state.calc.status = 'resolved';
+      console.log(action.payload);
+      state.calc.options = action.payload.options;
+    },
+    [calcNewDelivery.rejected]: (state, action) => {
+      state.calc.status = 'error';
+      state.calc.error = action.payload;
     },
   },
 });
