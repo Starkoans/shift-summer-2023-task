@@ -18,10 +18,10 @@ function Profile() {
       <h2>Личная информация</h2>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.profileForm}>
         <section>
-          <label htmlFor="username">ФИО</label>
+          <label htmlFor="username">Имя</label>
           <input
-            placeholder="Укажите ФИО"
-            defaultValue={user.username}
+            placeholder="Имя"
+            defaultValue={user.userInfo.firstname}
             type={'text'}
             {...register('name', {
               required: 'Поле обязательно к заполнению.',
@@ -65,7 +65,7 @@ function Profile() {
           <label htmlFor="email">E-mail</label>
           <input
             placeholder="Укажите e-mail"
-            defaultValue={user.username}
+            defaultValue={user.userInfo.email}
             type={'text'}
             {...register('email', {
               required: 'Поле обязательно к заполнению.',
