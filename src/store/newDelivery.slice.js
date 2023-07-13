@@ -129,7 +129,9 @@ const newDeliverySlice = createSlice({
       state.receiver.middlename = action.payload.middlename;
       state.receiver.phone = action.payload.phone;
     },
-
+    setPayer: (state, action) => {
+      state.payer = action.payload;
+    },
     setDeliveryOption: (state, action) => {
       state.option.id = action.payload.id;
       state.option.price = action.payload.price;
@@ -145,7 +147,6 @@ const newDeliverySlice = createSlice({
     },
     [calcNewDelivery.fulfilled]: (state, action) => {
       state.calc.status = 'resolved';
-      console.log(action.payload);
       state.calc.options = action.payload.options;
     },
     [calcNewDelivery.rejected]: (state, action) => {
@@ -159,6 +160,7 @@ export const {
   setPackage,
   setReceiverPoint,
   setSenderPoint,
+  setPayer,
   setReceiver,
   setSender,
   setDeliveryOption,
