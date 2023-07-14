@@ -1,13 +1,15 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 
+import { getSession } from '../../store/user.slice.js';
 import styles from './Layout.module.css';
 
 function Layout() {
   const user = useSelector(state => state.user);
 
   return (
-    <>
+    <div className="h-full">
       <nav className={styles.header}>
         <div className="flex flex-row pr-10  basis-2/3 justify-self-start">
           <NavLink to={'/'} className={'flex flex-row'}>
@@ -28,7 +30,7 @@ function Layout() {
           </NavLink>
         </div>
 
-        {!user.id ? (
+        {!user.userInfo._id ? (
           <>
             <button>
               <NavLink to={'/auth/phone'}>Войти в личный кабинет</NavLink>
@@ -41,7 +43,7 @@ function Layout() {
         )}
       </nav>
       <Outlet />
-    </>
+    </div>
   );
 }
 

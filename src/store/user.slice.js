@@ -84,7 +84,7 @@ export const getSession = createAsyncThunk(
 
 const initialState = {
   userInfo: {
-    id: null,
+    _id: null,
     firstname: null,
     middlename: null,
     lastname: null,
