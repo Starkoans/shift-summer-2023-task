@@ -1,12 +1,10 @@
 import { Outlet } from 'react-router-dom';
 
-import styles from '../components/Auth.module.css';
-
 function AuthPage() {
   return (
     <div className="flex justify-center">
-      <div className={styles.auth}>
-        <Outlet className={styles.auth} />
+      <div className="p-10 bg-white text-black  max-w-sm rounded-xl flex-col flex justify-center text-center m-10">
+        <Outlet />
       </div>
     </div>
   );

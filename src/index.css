@@ -5,10 +5,21 @@
 body{
     padding: 0;
     margin: 0;
-    @apply bg-back flex justify-center
+    @apply
+    bg-back
+    flex
+    justify-center
+    h-full
 
 
 }
+html {
+    @apply h-full;
+}
+#root{
+    @apply h-full;
+}
+
 input{
     @apply border-slate-200 border-2 rounded;
 }

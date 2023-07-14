@@ -226,7 +226,14 @@ export default function CalculateDelivery() {
             <p className={'text-red-500'}>{errors.weight?.message}</p>
           </div>
         )}
-        <button className={styles.button}>Рассчитать</button>
+        <button
+          className={
+            'bg-violet-900 text-white py-3 px-5 m-2  rounded-3xl ' +
+            'hover:bg-violet-500 text-white py-3 px-5 m-2  rounded-3xl'
+          }
+        >
+          Рассчитать
+        </button>
       </form>
     </div>
   );

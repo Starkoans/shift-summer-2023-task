@@ -25,10 +25,11 @@ export default function SendPhoneForm() {
   };
 
   return (
-    <form className={styles.authForm} onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <h2>Вход в кабинет</h2>
       <p>Введите номер телефона для входа в личный кабинет</p>
       <input
+        className={'p-2 m-2'}
         placeholder="Номер телефона"
         type={'tel'}
         defaultValue={user.phone.phoneNum}
@@ -46,7 +47,9 @@ export default function SendPhoneForm() {
       />
       <p className="text-red-500">{errors.phone?.message}</p>
       <button
-        className={'bg-violet-900 text-white py-3 px-5 m-2 rounded-3xl'}
+        className={
+          'bg-fuchsia-900 p-2 m-2 border-2 border-fuchsia-900 hover: bg-fuchsia-900'
+        }
         type={'submit'}
       >
         Получить код

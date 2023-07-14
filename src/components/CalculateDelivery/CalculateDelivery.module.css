@@ -14,10 +14,7 @@
 .btnAccurasyUnselected{
     @apply text-stone-500 py-2 px-3 m-2 rounded-2xl;
 }
-.button{
-    @apply bg-violet-900 text-white py-3 px-5 m-2  rounded-3xl
-    hover:bg-violet-500 text-white py-3 px-5 m-2  rounded-3xl
-}
+
 .calcShipSelect{
     @apply p-2
 }
