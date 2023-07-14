@@ -11,6 +11,7 @@ import SendPhoneForm from './components/SendPhoneForm/SendPhoneForm.jsx';
 import './index.css';
 import AccountPage from './pages/AccountPage.jsx';
 import AuthPage from './pages/AuthPage.jsx';
+import CheckOrderOptionsPage from './pages/CheckOrderOptionsPage.jsx';
 import MainPage from './pages/MainPage.jsx';
 import OrderOptionsPage from './pages/OrderOptionsPage.jsx';
 import { store } from './store/store.js';
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         element: <OrderOptionsPage />,
         path: '/order',
+      },
+      {
+        element: <CheckOrderOptionsPage />,
+        path: 'order/check',
       },
       {
         element: <AuthPage />,

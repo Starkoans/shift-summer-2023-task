@@ -1,24 +1,63 @@
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import {
+  setReceiver,
+  setReceiverAddress,
+  setSender,
+  setSenderAddress,
+} from '../../store/newDelivery.slice.js';
 import SelectDeliveryType from './SelectDeliveryType.jsx';
 import SelectPayerSection from './SelectPayerSection.jsx';
 import ValidatedInput from './ValidatedInput.jsx';
 
 function OrderOptionsForm() {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
     watch,
   } = useForm({ mode: 'onBlur' });
 
-  const onSubmit = data => {
-    console.log(data);
-    // navigate('/check');
+  const onSubmit = () => {
+    const data = getValues();
+    dispatch(
+      setSender({
+        firstname: data.senderName,
+        lastname: data.senderLastname,
+        middlename: data.senderMiddlename,
+        phone: data.senderPhone,
+      })
+    );
+    dispatch(
+      setReceiver({
+        firstname: data.receiverName,
+        lastname: data.receiverLastname,
+        middlename: data.receiverMiddlename,
+        phone: data.receiverPhone,
+      })
+    );
+    dispatch(
+      setSenderAddress({
+        street: data.senderStreet,
+        house: data.senderHouse,
+        appartament: data.senderAppartament,
+        comment: data.senderComment,
+      })
+    );
+    dispatch(
+      setReceiverAddress({
+        street: data.receiverStreet,
+        house: data.receiverHouse,
+        appartament: data.receiverAppartament,
+        comment: data.receiverComment,
+      })
+    );
+    navigate('/order/check');
   };
   const newDelivery = useSelector(state => state.newDelivery);
 
@@ -50,7 +89,7 @@ function OrderOptionsForm() {
             register={register}
             errors={errors}
             label="Фамилия"
-            name="receiverLastName"
+            name="receiverLastname"
             required={true}
             minLength={2}
             maxLength={50}
@@ -62,7 +101,7 @@ function OrderOptionsForm() {
             register={register}
             errors={errors}
             label="Отчество"
-            name="receiverLastName"
+            name="receiverMiddlename"
             required={false}
             minLength={2}
             maxLength={50}
@@ -79,7 +118,7 @@ function OrderOptionsForm() {
             required={true}
             minLength={7}
             maxLength={12}
-            pattern={/^\+[0-9]+$/}
+            pattern={/^[0-9]+$/}
           />
         </section>
       </section>
@@ -104,7 +143,7 @@ function OrderOptionsForm() {
             register={register}
             errors={errors}
             label="Фамилия"
-            name="senderLastName"
+            name="senderLastname"
             required={true}
             minLength={2}
             maxLength={50}
@@ -116,7 +155,7 @@ function OrderOptionsForm() {
             register={register}
             errors={errors}
             label="Отчество"
-            name="senderLastName"
+            name="senderMiddlename"
             required={false}
             minLength={2}
             maxLength={50}

@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { useState } from 'react';
 
 export const calcNewDelivery = createAsyncThunk(
   'newDelivery/calc',
@@ -30,6 +31,77 @@ export const calcNewDelivery = createAsyncThunk(
         }
       );
 
+      if (!response.ok) {
+        throw new Error('Что-то пошло не так...');
+      }
+      return response.json();
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+export const sendDeliveryOrder = createAsyncThunk(
+  'newDelivery/order',
+  async function (data, { rejectWithValue }) {
+    try {
+      const response = await fetch(
+        'https://shift-backend.onrender.com/delivery/order',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            senderPoint: {
+              id: data.senderPoint.id,
+              name: data.senderPoint.name,
+              latitude: data.senderPoint.latitude,
+              longitude: data.senderPoint.longitude,
+            },
+            senderAddress: {
+              street: data.senderAddress.street,
+              house: data.senderAddress.house,
+              appartament: data.senderAddress.appartament,
+              comment: data.senderAddress.comment,
+            },
+            sender: {
+              firstname: data.sender.firstname,
+              lastname: data.sender.lastname,
+              middlename: data.sender.middlename,
+              phone: data.sender.phone,
+            },
+            receiverPoint: {
+              id: data.receiverPoint.id,
+              name: data.receiverPoint.name,
+              latitude: data.receiverPoint.latitude,
+              longitude: data.receiverPoint.longitude,
+            },
+            receiverAddress: {
+              street: data.receiverAddress.street,
+              house: data.receiverAddress.house,
+              appartament: data.receiverAddress.appartament,
+              comment: data.receiverAddress.comment,
+            },
+            receiver: {
+              firstname: data.receiver.firstname,
+              lastname: data.receiver.lastname,
+              middlename: data.receiver.middlename,
+              phone: data.receiver.phone,
+            },
+            payer: data.payer,
+            option: {
+              id: data.option.id,
+              price: data.option.price,
+              days: data.option.days,
+              name: data.option.name,
+              type: data.option.type,
+            },
+          }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+        }
+      );
+      if (response.status === 400) {
+        throw new Error('Не все поля заполнены.');
+      }
       if (!response.ok) {
         throw new Error('Что-то пошло не так...');
       }
@@ -84,6 +156,12 @@ const initialState = {
     status: null,
   },
 
+  order: {
+    res: null,
+    error: null,
+    status: null,
+  },
+
   senderAddress: {
     street: null,
     house: null,
@@ -95,6 +173,13 @@ const initialState = {
     house: null,
     appartament: null,
     comment: null,
+  },
+  option: {
+    id: null,
+    price: null,
+    days: null,
+    name: null,
+    type: null,
   },
 };
 
@@ -123,21 +208,26 @@ const newDeliverySlice = createSlice({
       state.sender.middlename = action.payload.middlename;
       state.sender.phone = action.payload.phone;
     },
+    setOrderStatusClosed: state => {
+      state.order.status = 'closed;';
+    },
     setReceiver: (state, action) => {
       state.receiver.firstname = action.payload.firstname;
       state.receiver.lastname = action.payload.lastname;
       state.receiver.middlename = action.payload.middlename;
       state.receiver.phone = action.payload.phone;
     },
+    setReceiverAddress: (state, action) => {
+      state.receiverAddress = action.payload;
+    },
+    setSenderAddress: (state, action) => {
+      state.senderAddress = action.payload;
+    },
     setPayer: (state, action) => {
       state.payer = action.payload;
     },
     setDeliveryOption: (state, action) => {
-      state.option.id = action.payload.id;
-      state.option.price = action.payload.price;
-      state.option.days = action.payload.days;
-      state.option.name = action.payload.name;
-      state.option.type = action.payload.type;
+      state.option = action.payload;
     },
   },
   extraReducers: {
@@ -153,6 +243,19 @@ const newDeliverySlice = createSlice({
       state.calc.status = 'error';
       state.calc.error = action.payload;
     },
+
+    [sendDeliveryOrder.pending]: state => {
+      state.order.status = 'loading';
+      state.order.error = null;
+    },
+    [sendDeliveryOrder.fulfilled]: (state, action) => {
+      state.order.status = 'resolved';
+      state.order.res = action.payload;
+    },
+    [sendDeliveryOrder.rejected]: (state, action) => {
+      state.order.status = 'error';
+      state.order.error = action.payload;
+    },
   },
 });
 
@@ -163,6 +266,9 @@ export const {
   setPayer,
   setReceiver,
   setSender,
+  setReceiverAddress,
+  setSenderAddress,
   setDeliveryOption,
+  setOrderStatusClosed,
 } = newDeliverySlice.actions;
 export default newDeliverySlice.reducer;
