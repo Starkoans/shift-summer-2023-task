@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { useState } from 'react';
 
 export const calcNewDelivery = createAsyncThunk(
   'newDelivery/calc',
@@ -112,7 +111,52 @@ export const sendDeliveryOrder = createAsyncThunk(
   }
 );
 
+export const getPoints = createAsyncThunk(
+  'newDelivery/points',
+  async function (_, { rejectWithValue }) {
+    try {
+      const response = await fetch(
+        'https://shift-backend.onrender.com/delivery/points'
+      );
+      if (!response.ok) {
+        throw new Error('Что-то пошло не так...');
+      }
+      return response.json();
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getPackageTypes = createAsyncThunk(
+  'newDelivery/packageTypes',
+  async function (_, { rejectWithValue }) {
+    try {
+      const response = await fetch(
+        'https://shift-backend.onrender.com/delivery/package/types'
+      );
+      if (!response.ok) {
+        throw new Error('Что-то пошло не так...');
+      }
+      return response.json();
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const initialState = {
+  points: {
+    points: null,
+    status: null,
+    error: null,
+  },
+  packageTypes: {
+    packages: null,
+    status: null,
+    error: null,
+  },
+
   package: {
     length: null,
     width: null,
@@ -188,7 +232,10 @@ const newDeliverySlice = createSlice({
   initialState,
   reducers: {
     setPackage: (state, action) => {
-      state.package = action.payload;
+      state.package.height = action.payload.height;
+      state.package.width = action.payload.width;
+      state.package.weight = action.payload.weight;
+      state.package.length = action.payload.length;
     },
     setSenderPoint: (state, action) => {
       state.senderPoint.id = action.payload.id;
@@ -255,6 +302,32 @@ const newDeliverySlice = createSlice({
     [sendDeliveryOrder.rejected]: (state, action) => {
       state.order.status = 'error';
       state.order.error = action.payload;
+    },
+
+    [getPoints.pending]: state => {
+      state.points.status = 'loading';
+      state.points.error = null;
+    },
+    [getPoints.fulfilled]: (state, action) => {
+      state.points.status = 'resolved';
+      state.points.points = action.payload.points;
+    },
+    [getPoints.rejected]: (state, action) => {
+      state.points.status = 'error';
+      state.points.error = action.payload;
+    },
+
+    [getPackageTypes.pending]: state => {
+      state.packageTypes.status = 'loading';
+      state.packageTypes.error = null;
+    },
+    [getPackageTypes.fulfilled]: (state, action) => {
+      state.packageTypes.status = 'resolved';
+      state.packageTypes.packages = action.payload.packages;
+    },
+    [getPackageTypes.rejected]: (state, action) => {
+      state.packageTypes.status = 'error';
+      state.packageTypes.error = action.payload;
     },
   },
 });
