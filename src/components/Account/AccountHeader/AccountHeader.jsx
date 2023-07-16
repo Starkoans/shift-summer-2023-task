@@ -1,8 +1,11 @@
+import { useDispatch } from 'react-redux';
 import { Link, Outlet } from 'react-router-dom';
 
+import { removeUser } from '../../../store/user.slice.js';
 import styles from './AccountHeader.module.css';
 
 function AccountHeader() {
+  const dispatch = useDispatch();
   return (
     <div className={styles.account}>
       <header>
@@ -15,7 +18,11 @@ function AccountHeader() {
         </div>
 
         <div className={'grow'}>
-          <Link className={'text-red-500'} to={'/'}>
+          <Link
+            className={'text-red-500'}
+            onClick={e => dispatch(removeUser())}
+            to={'/'}
+          >
             Выйти
           </Link>
         </div>
