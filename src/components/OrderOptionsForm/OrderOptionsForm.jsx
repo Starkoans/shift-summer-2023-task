@@ -2,6 +2,8 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import Button from '../../atoms/Button.jsx';
+import ValidatedInput from '../../atoms/ValidatedInput.jsx';
 import {
   setReceiver,
   setReceiverAddress,
@@ -10,7 +12,6 @@ import {
 } from '../../store/newDelivery.slice.js';
 import SelectDeliveryType from './SelectDeliveryType.jsx';
 import SelectPayerSection from './SelectPayerSection.jsx';
-import ValidatedInput from './ValidatedInput.jsx';
 
 function OrderOptionsForm() {
   const navigate = useNavigate();
@@ -84,7 +85,7 @@ function OrderOptionsForm() {
             pattern={/[a-zA-Zа-яА-Я]/}
           />
           <ValidatedInput
-            type={'text'}
+            type="text"
             defaultValue={newDelivery.receiver.lastname}
             register={register}
             errors={errors}
@@ -96,7 +97,7 @@ function OrderOptionsForm() {
             pattern={/[a-zA-Zа-яА-Я]/}
           />
           <ValidatedInput
-            type={'text'}
+            type="text"
             defaultValue={newDelivery.receiver.middlename}
             register={register}
             errors={errors}
@@ -109,7 +110,7 @@ function OrderOptionsForm() {
           />
 
           <ValidatedInput
-            type={'text'}
+            type="text"
             defaultValue={newDelivery.receiver.phone}
             register={register}
             errors={errors}
@@ -126,7 +127,7 @@ function OrderOptionsForm() {
         <label htmlFor="senderData">Данные отправителя</label>
         <section id="senderData">
           <ValidatedInput
-            type={'text'}
+            type="text"
             defaultValue={newDelivery.sender.firstname}
             register={register}
             errors={errors}
@@ -138,7 +139,7 @@ function OrderOptionsForm() {
             pattern={/[a-zA-Zа-яА-Я]/}
           />
           <ValidatedInput
-            type={'text'}
+            type="text"
             defaultValue={newDelivery.sender.lastname}
             register={register}
             errors={errors}
@@ -150,7 +151,7 @@ function OrderOptionsForm() {
             pattern={/[a-zA-Zа-яА-Я]/}
           />
           <ValidatedInput
-            type={'text'}
+            type="text"
             defaultValue={newDelivery.sender.middlename}
             register={register}
             errors={errors}
@@ -162,7 +163,7 @@ function OrderOptionsForm() {
             pattern={/[a-zA-Zа-яА-Я]/}
           />
           <ValidatedInput
-            type={'text'}
+            type="text"
             defaultValue={newDelivery.sender.phone}
             register={register}
             errors={errors}
@@ -179,7 +180,7 @@ function OrderOptionsForm() {
         <label htmlFor="senderAddress">Адрес отправителя</label>
         <section id="senderAddress">
           <ValidatedInput
-            type={'text'}
+            type="text"
             defaultValue={newDelivery.senderAddress.street}
             register={register}
             errors={errors}
@@ -190,7 +191,7 @@ function OrderOptionsForm() {
             maxLength={50}
           />
           <ValidatedInput
-            type={'text'}
+            type="text"
             defaultValue={newDelivery.senderAddress.house}
             register={register}
             errors={errors}
@@ -201,7 +202,7 @@ function OrderOptionsForm() {
             maxLength={3}
           />
           <ValidatedInput
-            type={'text'}
+            type="text"
             defaultValue={newDelivery.senderAddress.appartament}
             register={register}
             errors={errors}
@@ -212,7 +213,7 @@ function OrderOptionsForm() {
             pattern={/^[0-9]+$/}
           />
           <ValidatedInput
-            type={'textarea'}
+            type="textarea"
             defaultValue={newDelivery.senderAddress.comment}
             register={register}
             errors={errors}
@@ -228,7 +229,7 @@ function OrderOptionsForm() {
         <label htmlFor="receiverAddress">Адрес получателя</label>
         <section id="receiverAddress">
           <ValidatedInput
-            type={'text'}
+            type="text"
             defaultValue={newDelivery.receiverAddress.street}
             register={register}
             errors={errors}
@@ -239,7 +240,7 @@ function OrderOptionsForm() {
             maxLength={50}
           />
           <ValidatedInput
-            type={'text'}
+            type="text"
             defaultValue={newDelivery.receiverAddress.house}
             register={register}
             errors={errors}
@@ -250,7 +251,7 @@ function OrderOptionsForm() {
             maxLength={3}
           />
           <ValidatedInput
-            type={'text'}
+            type="text"
             defaultValue={newDelivery.receiverAddress.appartament}
             register={register}
             errors={errors}
@@ -261,7 +262,7 @@ function OrderOptionsForm() {
             pattern={/^[0-9]+$/}
           />
           <ValidatedInput
-            type={'textarea'}
+            type="textarea"
             defaultValue={newDelivery.receiverAddress.comment}
             register={register}
             errors={errors}
@@ -273,7 +274,7 @@ function OrderOptionsForm() {
         </section>
       </section>
       <SelectPayerSection />
-      <button type="submit">Оформить</button>
+      <Button text="Оформить" type="submit" />
     </form>
   );
 }
