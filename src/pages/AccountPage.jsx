@@ -7,7 +7,7 @@ function AccountPage() {
 
   return (
     <div className="bg-gray-100">
-      {user.userInfo._id ? (
+      {user.token ? (
         <AccountHeader />
       ) : (
         <p className="text-center p-10">
