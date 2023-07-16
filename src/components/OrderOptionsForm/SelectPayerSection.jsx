@@ -15,28 +15,28 @@ function SelectPayerSection() {
   };
 
   return (
-    <section>
+    <section className="m-3">
       <label>Кто оплачивает доставку:</label>
-      <section>
-        <label className="p-2" htmlFor="sender">
+      <section className="py-3">
+        <label className="pr-5" htmlFor="sender">
           <input
             checked={payer === 'SENDER'}
             onChange={handleChange}
             type="radio"
             value="SENDER"
             id="sender"
-            className="mr-3"
+            className="mr-3 accent-fuchsia-900"
           />
           Отправитель
         </label>
-        <label htmlFor="receiver">
+        <label htmlFor="receiver" className="pr-5">
           <input
             checked={payer === 'RECEIVER'}
             onChange={handleChange}
             type="radio"
             value="RECEIVER"
             id="receiver"
-            className="mr-3"
+            className="mr-3 accent-fuchsia-900"
           />
           Получатель
         </label>
