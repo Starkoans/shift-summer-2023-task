@@ -116,12 +116,10 @@ const userSlice = createSlice({
     setUserToken: (state, action) => {
       state.token = action.payload;
     },
-    setUserName: (state, action) => {
-      state.username = action.payload;
+    setUserInfo: (state, action) => {
+      state.userInfo = action.payload;
     },
-    setUserEmail: (state, action) => {
-      state.email = action.payload;
-    },
+
     setCode: (state, action) => {
       state.otp.code = action.payload;
     },
@@ -131,12 +129,20 @@ const userSlice = createSlice({
       state.otp.error = null;
     },
     removeUser: state => {
-      state.username = null;
-      state.phone = null;
+      state.userInfo._id = null;
+      state.userInfo.firstname = null;
+      state.userInfo.middlename = null;
+      state.userInfo.lastname = null;
+      state.userInfo.email = null;
+      state.userInfo.city = null;
+      state.userInfo.status = null;
+      state.userInfo.error = null;
+
+      state.phone.phoneNum = null;
+      state.phone.error = null;
+      state.phone.status = null;
+
       state.token = null;
-      state.email = null;
-      state.status = null;
-      state.error = null;
     },
   },
   extraReducers: {
