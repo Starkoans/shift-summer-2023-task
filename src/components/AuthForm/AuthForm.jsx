@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import Button from '../../atoms/Button.jsx';
+import ValidatedInput from '../../atoms/ValidatedInput.jsx';
 import { getSession, setCode, signIn } from '../../store/user.slice.js';
 import styles from '../Auth.module.css';
 
@@ -33,33 +35,22 @@ export default function AuthForm() {
       <p>Пароль отправлен на номер </p>
       <p>{user.phone.phoneNum}</p>
 
-      <input
-        placeholder="Пароль"
-        type={'text'}
-        {...register('code', {
-          required: 'Поле обязательно к заполнению.',
-          minLength: {
-            value: 6,
-            message: 'Неккоректный ввод.',
-          },
-          maxLength: {
-            value: 12,
-            message: 'Неккоректный ввод.',
-          },
-        })}
+      <ValidatedInput
+        type="text"
+        register={register}
+        errors={errors}
+        label="Код"
+        name="code"
+        required={true}
+        minLength={6}
+        maxLength={12}
+        pattern={/[0-9]+$/}
       />
-      {user.otp.error && <p className={'text-red-500'}>{user.otp.error}</p>}
-      <p className={'text-red-500'}>{errors.code?.message}</p>
-      <Link to={'/auth/phone'}>Отправить ещё раз</Link>
-      <button
-        className={
-          'bg-purple-800 text-white py-3 px-5 m-2  rounded-3xl' +
-          'hover:bg-purple-500 text-white py-3 px-5 m-2  rounded-3xl'
-        }
-        type={'submit'}
-      >
-        Войти
-      </button>
+
+      <Link to={'/auth/phone'} className="text-purple-900">
+        Отправить ещё раз
+      </Link>
+      <Button type="submit" text="Войти" />
     </form>
   );
 }

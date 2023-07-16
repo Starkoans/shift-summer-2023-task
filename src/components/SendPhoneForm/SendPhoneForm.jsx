@@ -2,9 +2,10 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import Button from '../../atoms/Button.jsx';
+import ValidatedInput from '../../atoms/ValidatedInput.jsx';
 import { removeCode } from '../../store/user.slice.js';
 import { sendPhone, setUserPhone } from '../../store/user.slice.js';
-import styles from '../Auth.module.css';
 
 export default function SendPhoneForm() {
   const user = useSelector(state => state.user);
@@ -15,7 +16,8 @@ export default function SendPhoneForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+    setValue,
+  } = useForm({ mode: 'onChange' });
   const onSubmit = data => {
     console.log(JSON.stringify(data));
     dispatch(removeCode());
@@ -25,35 +27,26 @@ export default function SendPhoneForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="p-10 bg-white text-black  max-w-sm rounded-xl flex-col flex justify-center text-center m-10"
+    >
       <h2>Вход в кабинет</h2>
       <p>Введите номер телефона для входа в личный кабинет</p>
-      <input
-        className={'p-2 m-2'}
-        placeholder="Номер телефона"
-        type={'tel'}
+      <ValidatedInput
+        type="tel"
         defaultValue={user.phone.phoneNum}
-        {...register('phone', {
-          required: 'Поле обязательно к заполнению.',
-          minLength: {
-            value: 6,
-            message: 'Неккоректный ввод.',
-          },
-          maxLength: {
-            value: 12,
-            message: 'Неккоректный ввод.',
-          },
-        })}
+        register={register}
+        errors={errors}
+        label="Номер телефона"
+        name="phone"
+        required={true}
+        minLength={6}
+        maxLength={11}
+        pattern="tel"
+        setValue={setValue}
       />
-      <p className="text-red-500">{errors.phone?.message}</p>
-      <button
-        className={
-          'bg-fuchsia-900 p-2 m-2 border-2 border-fuchsia-900 hover: bg-fuchsia-900'
-        }
-        type={'submit'}
-      >
-        Получить код
-      </button>
+      <Button type="submit" text="Получить код" />
     </form>
   );
 }
