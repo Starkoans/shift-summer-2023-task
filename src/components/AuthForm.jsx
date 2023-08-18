@@ -1,17 +1,19 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-import Button from '../../atoms/Button.jsx';
-import ValidatedInput from '../../atoms/ValidatedInput.jsx';
-import { getSession, setCode, signIn } from '../../store/user.slice.js';
-import styles from '../Auth.module.css';
+import { getToken, isExpired } from '../Auth.js';
+import Button from '../atoms/Button.jsx';
+import ValidatedInput from '../atoms/ValidatedInput.jsx';
+import { getSession } from '../store/user/thunks/getSession.js';
+import { signIn } from '../store/user/thunks/signIn.js';
+import { setCode } from '../store/user/user.slice.js';
 
 export default function AuthForm() {
   const dispatch = useDispatch();
   const user = useSelector(state => state.user);
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -22,19 +24,22 @@ export default function AuthForm() {
     console.log(JSON.stringify(data));
     dispatch(setCode(data.code));
   };
+  const tkn = getToken();
   useEffect(() => {
-    dispatch(getSession(user.token));
-  }, [dispatch, user.token]);
+    dispatch(getSession(tkn));
+    if (tkn && !isExpired(tkn.timeStamp)) {
+      navigate('/account/profile');
+    }
+  }, [dispatch, navigate, tkn]);
 
   return (
     <form
       className="p-10 bg-white text-black  max-w-sm rounded-xl flex-col flex justify-center text-center m-10"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <h2>Вход в кабинет</h2>
-      <p>Пароль отправлен на номер </p>
-      <p>{user.phone.phoneNum}</p>
-
+      <h2 className="font-bold text-xl mb-4">Вход в кабинет</h2>
+      <p>Код отправлен на номер </p>
+      <p className="mb-4">{user.phone.phoneNum}</p>
       <ValidatedInput
         type="text"
         register={register}
@@ -46,11 +51,10 @@ export default function AuthForm() {
         maxLength={12}
         pattern={/[0-9]+$/}
       />
-
-      <Link to={'/auth/phone'} className="text-purple-900">
+      <Link to={'/auth/phone'} className="text-purple-900 mb-4 hover:underline">
         Отправить ещё раз
       </Link>
-      <Button type="submit" text="Войти" />
+      <Button type="secondary" cn="secondary" child="Войти" />
     </form>
   );
 }
