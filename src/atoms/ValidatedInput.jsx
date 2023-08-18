@@ -60,10 +60,10 @@ export default function ValidatedInput({
   };
 
   return (
-    <div className="form-control-input flex flex-col m-2">
+    <div className="form-control-input flex flex-col mb-3">
       {type === 'text' && (
         <input
-          className="p-2"
+          className="p-2 font-light rounded-md border-2 border-stone-200"
           defaultValue={defaultValue}
           placeholder={required ? label + '*' : label}
           id={name}
@@ -74,7 +74,7 @@ export default function ValidatedInput({
       )}
       {type === 'tel' && (
         <input
-          className="p-2"
+          className="p-2 font-light rounded-md border-2 border-stone-200"
           defaultValue={defaultValue}
           placeholder={required ? label + '*' : label}
           id={name}
@@ -99,7 +99,7 @@ export default function ValidatedInput({
       )}
       {type === 'textarea' && (
         <textarea
-          className="p-2"
+          className="p-2 font-light rounded-md resize-none border-2 border-stone-200"
           defaultValue={defaultValue}
           placeholder={required ? label + '*' : label}
           id={name}

@@ -2,7 +2,7 @@ import OrderOptionsForm from '../components/OrderOptionsForm/OrderOptionsForm.js
 
 function OrderOptionsPage() {
   return (
-    <div>
+    <div className="p-3">
       <OrderOptionsForm />
     </div>
   );
