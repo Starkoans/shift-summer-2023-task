@@ -1,17 +1,18 @@
+import '@kirklin/reset-css/kirklin.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import Profile from './components/Account/AccountProfile/Profile.jsx';
-import DeliveryHistory from './components/Account/DeliveryHistory.jsx';
-import AuthForm from './components/AuthForm/AuthForm.jsx';
-import Layout from './components/Header/Layout.jsx';
-import SendPhoneForm from './components/SendPhoneForm/SendPhoneForm.jsx';
-import './index.css';
+import DeliveryHistory from './components/Account/DeliveryHistory/DeliveryHistory.jsx';
+import Profile from './components/Account/Profile.jsx';
+import AuthForm from './components/AuthForm.jsx';
+import Layout from './components/Layout.jsx';
+import SendPhoneForm from './components/SendPhoneForm.jsx';
 import AccountPage from './pages/AccountPage.jsx';
 import AuthPage from './pages/AuthPage.jsx';
 import CheckOrderOptionsPage from './pages/CheckOrderOptionsPage.jsx';
+import ErrorPage from './pages/ErrorPage.jsx';
 import MainPage from './pages/MainPage.jsx';
 import OrderOptionsPage from './pages/OrderOptionsPage.jsx';
 import { store } from './store/store.js';
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         element: <MainPage />,
@@ -47,7 +49,6 @@ const router = createBrowserRouter([
           },
         ],
       },
-
       {
         element: <AccountPage />,
         path: '/account',
@@ -65,7 +66,6 @@ const router = createBrowserRouter([
     ],
   },
 ]);
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>

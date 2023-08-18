@@ -2,38 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
+
+html{
+    overflow-y: scroll;
+}
+
+#root{
+    @apply w-full;
+}
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+    -webkit-appearance: button; /* 1 */
+    /*will affect the button style of most component libraries, so disable it*/
+    /*background-color: transparent; !* 2 *!*/
+    background-image: none; /* 2 */
+}
+
 body{
     padding: 0;
     margin: 0;
+    background-image: image("public/img/ProfileIcon.svg");
+    /*background: rgb(0,20,80);*/
+    /*background: -moz-linear-gradient(218deg, rgba(0,20,80,1) 0%, rgb(107, 46, 138) 59%, rgba(116,0,255,1) 100%);*/
+    /*background: -webkit-linear-gradient(218deg, rgba(0,20,80,1) 0%, rgb(107, 46, 138) 59%, rgba(116,0,255,1) 100%);*/
+    /*background: linear-gradient(218deg, rgba(0,20,80,1) 0%, rgb(107, 46, 138) 59%, rgba(116,0,255,1) 100%);*/
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#001450",endColorstr="#7400ff",GradientType=1);*/
     @apply
     bg-back
     flex
     justify-center
     h-full
-
-
 }
-html {
+
+.loader-container{
     @apply h-full;
-}
-#root{
-    @apply h-full;
-}
-
-input{
-    @apply border-slate-200 border-2 rounded;
-}
-select{
-    @apply border-slate-200 border-2 rounded;
-}
-a{
-    @apply
-    my-3
-    text-violet-900
-    hover:underline
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }
 
-button{
-    @apply bg-violet-900 text-white py-3 px-5 m-2  rounded-3xl
-    hover:bg-violet-500
+.lds-ring {
+    margin: auto;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
 }
+.lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
