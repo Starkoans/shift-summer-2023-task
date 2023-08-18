@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import {
-  calcNewDelivery,
-  getPackageTypes,
-  getPoints,
   setPackage,
   setReceiverPoint,
   setSenderPoint,
-} from '../../store/newDelivery.slice.js';
+} from '../../store/newDelivery/newDelivery.slice.js';
+import { calcNewDelivery } from '../../store/newDelivery/thunks/calcNewDelirery.js';
+import { getPackageTypes } from '../../store/newDelivery/thunks/getPackageTypes.js';
+import { getPoints } from '../../store/newDelivery/thunks/getPoints.js';
 
 export default function useCalculateDelivery(watch) {
   const newDelivery = useSelector(state => state.newDelivery);
@@ -60,5 +60,9 @@ export default function useCalculateDelivery(watch) {
     dispatch(getPoints());
     dispatch(getPackageTypes());
   }, []);
-  return { onSubmit, optionsAccurasy, accurasy };
+  return {
+    onSubmit,
+    optionsAccurasy,
+    accurasy,
+  };
 }
