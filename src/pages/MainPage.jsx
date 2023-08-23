@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import CartboardBoxes from '../../public/img/Cartboard_boxes_with_list.png';
-import Slogan from '../../public/img/Slogan.png';
+import CartboardBoxes from '../../public/img/Cartboard_boxes_with_list_1.png';
+import Slogan from '../../public/img/Slogan_1.png';
 import CalculateDelivery from '../components/CalculateDelivery/CalculateDelivery.jsx';
 
 export default function MainPage() {
