@@ -20,7 +20,6 @@ export default function SendPhoneForm() {
     setValue,
   } = useForm({ mode: 'onChange' });
   const onSubmit = data => {
-    console.log(JSON.stringify(data));
     dispatch(removeCode());
     dispatch(setUserPhone(data.phone));
     dispatch(sendPhone(data.phone));

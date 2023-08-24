@@ -19,16 +19,16 @@ function DeliveryHistory() {
   return (
     <>
       {user.deliveryHistory.status === 'resolved' ? (
-        user.deliveryHistory.history &&
-        user.deliveryHistory.history !== 'empty' ? (
+        !user.deliveryHistory.history ||
+        user.deliveryHistory.history === 'empty' ? (
+          <div className="p-5">
+            <p>Заказов пока нет.</p>
+          </div>
+        ) : (
           <div className="m-5 text-gray-700 ">
             {user.deliveryHistory.history.map((order, index) => (
               <HistoryItem order={order} index={index} key={order._id} />
             ))}
-          </div>
-        ) : (
-          <div className="p-5">
-            <p>Заказов пока нет.</p>
           </div>
         )
       ) : user.deliveryHistory.status === 'loading' ? (

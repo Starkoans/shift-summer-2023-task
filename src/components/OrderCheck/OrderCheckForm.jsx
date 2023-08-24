@@ -13,8 +13,7 @@ export default function OrderCheckForm() {
     dispatch(sendDeliveryOrder(newDelivery));
   };
 
-  const handleBack = e => {
-    console.log(e);
+  const handleBack = () => {
     navigate('/order');
   };
   return (

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import CloseIcon from '../../../public/img/CloseIcon.svg';
 import ErrorIcon from '../../../public/img/ErrorIcon.svg';
-import SuccesIcon from '../../../public/img/SuccesIcon.svg';
+import SuccessIcon from '../../../public/img/SuccessIcon.svg';
 import Button from '../../atoms/Button.jsx';
 import { setOrderStatusClosed } from '../../store/newDelivery/newDelivery.slice.js';
 
@@ -43,7 +43,7 @@ export default function OrderSendedPopup() {
                 className="self-center m-5 animate-pulse"
                 width={'150px'}
                 height={'150px'}
-                src={SuccesIcon}
+                src={SuccessIcon}
                 alt="Succes Order"
               />
               <p className="font-light">

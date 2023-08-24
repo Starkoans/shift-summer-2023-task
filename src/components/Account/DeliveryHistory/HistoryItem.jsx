@@ -12,7 +12,13 @@ export default function HistoryItem({ order, index }) {
             <p className="bg-green-400 rounded-2xl px-3 py-1 text-green-900">
               Доставлено
             </p>
-          ) : order.status === 2 ? (
+          ):
+            order.status === 2 ? (
+              <p className="bg-amber-400 rounded-2xl px-3 py-1 text-amber-900">
+                Заказ в пути
+              </p>
+            ):
+            order.status === 0 ? (
             <p className="bg-amber-400 rounded-2xl px-3 py-1 text-amber-900">
               На рассмотрении
             </p>
@@ -26,18 +32,18 @@ export default function HistoryItem({ order, index }) {
       <div className="grid gap-5 m-3 sm:grid-cols-2 grid-rows-1">
         <div className="border-2 rounded-2xl border-purple-800">
           <ContactsCard
-            contacts={order.receiver}
-            point={order.receiverPoint}
-            address={order.receiverAddress}
-            name="Получатель"
-          />
-        </div>
-        <div className="border-2 rounded-2xl border-purple-800">
-          <ContactsCard
             contacts={order.sender}
             point={order.senderPoint}
             address={order.senderAddress}
             name="Отправитель"
+          />
+        </div>
+        <div className="border-2 rounded-2xl border-purple-800">
+          <ContactsCard
+            contacts={order.receiver}
+            point={order.receiverPoint}
+            address={order.receiverAddress}
+            name="Получатель"
           />
         </div>
       </div>

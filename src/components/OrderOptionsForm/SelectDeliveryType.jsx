@@ -15,7 +15,6 @@ function SelectDeliveryType() {
   }, []);
 
   const handleSelect = option => {
-    console.log(option.type);
     setSelectedType(option.type);
     dispatch(
       setDeliveryOption({
@@ -37,8 +36,8 @@ function SelectDeliveryType() {
               onClick={() => handleSelect(option)}
               className={
                 selectedType === option.type
-                  ? 'bg-purple-600 drop-shadow-lg border-indigo-950 text-white m-3 p-5 rounded-2xl md:max-xl:w-1/2 md:max-2xl:w-1/2 transition ease-in-out duration-300 hover:bg-purple-700'
-                  : 'm-3 p-5 bg-purple-300 drop-shadow-md  rounded-2xl md:max-xl:w-1/2 md:max-xl:w-1/2 md:max-2xl:w-1/2 transition ease-in-out duration-300 hover:bg-purple-400 '
+                  ? 'bg-purple-600 drop-shadow-lg border-indigo-950 text-white m-3 p-5 rounded-2xl md:w-1/2  transition ease-in-out duration-300 hover:bg-purple-700'
+                  : 'm-3 p-5 bg-purple-300 drop-shadow-md  rounded-2xl md:w-1/2  transition ease-in-out duration-300 hover:bg-purple-400 '
               }
               key={index}
             >

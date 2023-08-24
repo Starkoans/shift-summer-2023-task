@@ -5,7 +5,6 @@ import Button from '../atoms/Button.jsx';
 
 export default function ErrorPage() {
   const error = useRouteError();
-  console.error(error);
 
   return (
     <div

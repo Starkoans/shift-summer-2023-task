@@ -26,7 +26,6 @@ export default function useCalculateDelivery(watch) {
     );
     dispatch(setSenderPoint(senderPoint));
 
-    console.log(JSON.stringify(data));
     if (data.accurasy === 'accurately') {
       dispatch(setPackage(data));
       const pack = {

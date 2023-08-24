@@ -18,7 +18,6 @@ const userSlice = createSlice({
       state.location = action.payload;
     },
     setUserToken: (state, action) => {
-      console.log(action.payload);
       state.token = action.payload;
     },
     setUserInfo: (state, action) => {

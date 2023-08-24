@@ -14,6 +14,8 @@ export default function MainPage() {
       .addEventListener('change', e => setIsMatches(e.matches));
   }, []);
 
+  const [isImagesLoaded, setIsImagesLoaded] = useState(false);
+
   return (
     <div
       className={
@@ -22,6 +24,7 @@ export default function MainPage() {
           : 'flex flex-col justify-center self-center mt-10'
       }
     >
+
       {
         <div
           className={
@@ -31,19 +34,22 @@ export default function MainPage() {
           }
         >
           <div className={isMatches ? 'relative scale-125' : 'relative'}>
-            <img
+            {isImagesLoaded && <img
               src={Slogan}
-              alt="SHIFT DELIVERY - быстро, удобно, надежно!"
-              className=" absolute inset-0 m-auto animate-spin-slow"
-            />
+              alt='SHIFT DELIVERY - быстро, удобно, надежно!'
+              className=' absolute inset-0 m-auto animate-spin-slow'
+            />}
             <div
-              className="scale-75 relative inset-0 w-80 h-80 m-auto rounded-full bg-purple-950
-            bg-gradient-to-br from-fuchsia-300 to-purple-500"
+              className={ !isImagesLoaded?(
+                "scale-75 relative inset-0 w-80 h-80 m-auto rounded-full bg-purple-950 bg-gradient-to-br from-fuchsia-300 to-purple-500 animate-pulse"
+              ):
+               ( "scale-75 relative inset-0 w-80 h-80 m-auto rounded-full bg-purple-950 bg-gradient-to-br from-fuchsia-300 to-purple-500")}
             />
           </div>
           <img
             src={CartboardBoxes}
-            alt="Delivery illustation"
+            alt='Delivery illustation'
+            onLoad={() => setIsImagesLoaded(true)}
             className={
               isMatches
                 ? 'absolute m-auto inset-0 ease-linear duration-500 hover:transition-transform hover:ease-linear hover:scale-125'

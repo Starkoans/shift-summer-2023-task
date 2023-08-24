@@ -112,7 +112,7 @@ function OrderOptionsForm() {
                   errors={errors}
                   label="Отчество"
                   name="receiverMiddlename"
-                  required={false}
+                  required={true}
                   minLength={2}
                   maxLength={50}
                   pattern={/[a-zA-Zа-яА-Я]/}
@@ -164,7 +164,7 @@ function OrderOptionsForm() {
                   errors={errors}
                   label="Квартира"
                   name="receiverAppartament"
-                  required={false}
+                  required={true}
                   maxLength={4}
                   pattern={/^[0-9]+$/}
                 />
@@ -214,7 +214,7 @@ function OrderOptionsForm() {
                   errors={errors}
                   label="Отчество"
                   name="senderMiddlename"
-                  required={false}
+                  required={true}
                   minLength={2}
                   maxLength={50}
                   pattern={/[a-zA-Zа-яА-Я]/}
@@ -265,7 +265,7 @@ function OrderOptionsForm() {
                   errors={errors}
                   label="Квартира"
                   name="senderAppartament"
-                  required={false}
+                  required={true}
                   maxLength={4}
                   pattern={/^[0-9]+$/}
                 />

@@ -21,7 +21,6 @@ export default function AuthForm() {
   } = useForm();
   const onSubmit = data => {
     dispatch(signIn({ phone: user.phone.phoneNum, code: data.code }));
-    console.log(JSON.stringify(data));
     dispatch(setCode(data.code));
   };
   const tkn = getToken();
@@ -51,6 +50,7 @@ export default function AuthForm() {
         maxLength={12}
         pattern={/[0-9]+$/}
       />
+      {user.otp.status === 'error' && <p className='text-red-500 pb-3'> {user.otp.error}</p>}
       <Link to={'/auth/phone'} className="text-purple-900 mb-4 hover:underline">
         Отправить ещё раз
       </Link>

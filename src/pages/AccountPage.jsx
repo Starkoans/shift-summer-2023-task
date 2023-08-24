@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { getToken, isExpired } from '../Auth.js';
 import AccountHeader from '../components/Account/AccountHeader.jsx';
 import { getSession } from '../store/user/thunks/getSession.js';
+import Unauthorized from '../../public/img/Unauthorized.svg'
 
 function AccountPage() {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ function AccountPage() {
           <div className="flex flex-col justify-center align-middle">
             <img
               alt="Unauthorized"
-              src="../../public/img/Unauthorized.svg"
+              src={Unauthorized}
               className="w-32 h-32 self-center animate-pulse mb-5"
             />
           </div>
