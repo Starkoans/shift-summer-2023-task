@@ -21,6 +21,7 @@ export default function AuthForm() {
   } = useForm();
   const onSubmit = data => {
     dispatch(signIn({ phone: user.phone.phoneNum, code: data.code }));
+
     dispatch(setCode(data.code));
   };
   const tkn = getToken();

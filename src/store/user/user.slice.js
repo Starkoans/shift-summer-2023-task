@@ -94,8 +94,8 @@ const userSlice = createSlice({
       state.userInfo.error = null;
     },
     [getSession.rejected]: (state, action) => {
-      state.otp.status = 'error';
-      state.otp.error = action.payload;
+      state.userInfo.status = 'error';
+      state.userInfo.error = action.payload;
     },
 
     [getDeliveryHistory.pending]: state => {
